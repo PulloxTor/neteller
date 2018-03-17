@@ -1,0 +1,58 @@
+// ==UserScript==
+// @name     SF_Task_Button	
+// @version  2.0
+// @description  Create a button in Neteller Admin that automatically generates a task to FD
+// @author	AlexKotzegien
+// @include http://admin.neteller.com/admin/memberV2/*
+// @include https://admin.neteller.com/admin/memberV2/*
+// @grant    GM_addStyle
+// ==/UserScript==
+
+
+
+//--- Create a button in a container div. 
+
+		var zNode = document.createElement ('div');
+		zNode.innerHTML = '<button id="myButton" class="addComments blue cboxElement" type="button">Task to FD</button>';
+		zNode.setAttribute ('id', 'myContainer');
+		document.body.appendChild (zNode);
+
+
+//--- Position the button at the Account Status Section
+
+		document.getElementsByClassName('section ui-helper-clearfix')[5].appendChild(
+		document.getElementById('myContainer') );
+
+
+//--- Activate the newly added button
+
+		document.getElementById ("myButton").addEventListener (
+		"click", ButtonClickAction, false);
+
+
+//----Get Member Account Number Value
+
+    var getElVal = document.getElementById('accountId').value
+ 
+
+//----Function to make Button open new Link
+
+		function ButtonClickAction (zEvent) {
+    window.open('https://eu1.salesforce.com/00T/e?retURL=%2Fapex%2Factivities__activities&00ND0000005gzZC=Suspected+Verification+Documents&00ND0000006QrkZ=Neteller&00ND0000005WuO2=Fraudulent+Account+Registration&00ND0000005WuNt=Fraud+Detection+Neteller&tsk1=Unassigned+User&tsk13=Normal&tsk1_lkid=005D0000002q16VIAQ&nooverride=1&tsk6=Hello+Team%2C%0A%0AMember+provided+altered+verification+documents.+Account+is+closed,+please+handle+available+balance.%0A%0AThanks+and+BR!&email=0&tsk3_mlktp=001&tsk3=' + getElVal + '&tsk2=' + getElVal,'_blank');
+    document.getElementById("myContainer").innerHTML = "Created Task to <BR> Fraud Detection!";
+		}
+
+
+//--- Style and Position Button within the div
+
+		document.getElementById('myContainer').style.marginLeft = "140px";
+		document.getElementById('myContainer').style.marginTop = "-35px";
+		document.getElementById('myButton').style.height=  "21px"
+		document.getElementById('myContainer').style.marginTop = "-2"
+		document.getElementById('myContainer').style.color = "#f00"
+		document.getElementById('myContainer').style.position = "absolute";
+		document.body.style.overflowY = "visible";
+
+
+
+//--------------------------------END OF SCRIPT 
